@@ -146,6 +146,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccBook.h" />
     <ClInclude Include="AllBillLine.h" />
     <ClInclude Include="CBill.h" />
     <ClInclude Include="CDateTime.h" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="03_Account-Management-System.cpp" />
+    <ClCompile Include="AccBook.cpp" />
     <ClCompile Include="AllBillLine.cpp" />
     <ClCompile Include="CBill.cpp" />
     <ClCompile Include="CDateTime.cpp" />
