@@ -131,8 +131,7 @@ void Main::createdByMon()
 	std::stringstream ss;
 	ss << std::fixed
 		<< (eim == Expense ? "Expense ￥" : "Income ￥")
-		<< mon << "in " << AccountBooks[m_operBillNum] 
-		<< std::endl;
+		<< mon << "in " << AccountBooks[m_operBillNum];
 	log = ss.str();
 	//用户确认
 	if (finallyConfirm())
@@ -142,12 +141,65 @@ void Main::createdByMon()
 	doSomethingElse();
 }
 
+//通过余额创建
 void Main::createdByBal()
 {
+	std::string desc = inputDesc();
+	double bal{};
+	std::cout << "Enter new balance: ";
+	std::cin >> bal;
+	//是否使用默认模板
+	std::string necessary;
+	std::string note;
+	if (useDefTemp())
+		necessary = "必需",
+		note = "无";
+	else
+		useDIYTemp(&necessary, &note);
+	//记录日志
+	std::stringstream ss;
+	ss << std::fixed
+		<< "Refresh the balance.New balance is " << bal;
+	log = ss.str();
+	//用户确认
+	if (finallyConfirm())
+		//TODO: 通过确认的情况
+		;
+	//是否干点别的
+	doSomethingElse();
 }
 
+//通过内部资金流通创建
 void Main::createdByFlow()
 {
+	std::cout << "Enter receipt account book: ";
+	m_operBill2Num = inputNum(1, 8, "Receipt account book number error!");
+	//录入流通的资金数
+	std::cout << "Enter the flow money: ";
+	double mon{};
+	std::cin >> mon;
+	//是否使用默认模板
+	std::string necessary;
+	std::string note;
+	if (useDefTemp())
+		necessary = "必需",
+		note = "无";
+	else
+		useDIYTemp(&necessary, &note);
+	//记录日志
+	std::stringstream ss;
+	ss << std::fixed
+		<< "Total of ￥" << mon << "is flowing from \""
+		<< AccountBooks[m_operBillNum] << "\" to \""
+		<< AccountBooks[m_operBill2Num] << "\"";
+	log = ss.str();
+	//用户确认
+	if (finallyConfirm())
+		//TODO: 通过确认的情况
+		;
+	//是否干点别的
+	doSomethingElse();
+
 }
 
 //映射操作模式(分流)
