@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllBillLine.h" />
-    <ClInclude Include="Book.h" />
     <ClInclude Include="CBill.h" />
     <ClInclude Include="CDateTime.h" />
     <ClInclude Include="FilePath.h" />
@@ -159,7 +158,6 @@
   <ItemGroup>
     <ClCompile Include="03_Account-Management-System.cpp" />
     <ClCompile Include="AllBillLine.cpp" />
-    <ClCompile Include="Book.cpp" />
     <ClCompile Include="CBill.cpp" />
     <ClCompile Include="CDateTime.cpp" />
     <ClCompile Include="Line.cpp" />
