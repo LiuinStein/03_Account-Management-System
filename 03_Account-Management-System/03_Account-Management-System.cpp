@@ -2,10 +2,12 @@
 //
 
 #include "stdafx.h"
+#include "Main.h"
 
 
 int main()
 {
+	Main JustDoIt;
     return 0;
 }
 
