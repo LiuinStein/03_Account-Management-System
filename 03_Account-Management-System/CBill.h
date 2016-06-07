@@ -30,9 +30,6 @@ public:
 	//得到余额
 	double getBalance()const;	
 
-	//直接从行中读入余额
-	static double getBalanceFromStr(std::string & __f);
-
 	//重载流运算符,使其可以直接写入文件
 	friend std::ofstream& operator<<(std::ofstream& __ofs, CBill & __w);
 

@@ -35,18 +35,6 @@ double CBill::getBalance() const
 	return m_balance;
 }
 
-//从行中直接读入余额
-double CBill::getBalanceFromStr(std::string & __f)
-{
-	std::string tmp;
-	std::stringstream ss(__f);
-	for (int i = 0; i < 7; i++)
-		ss >> tmp;
-	double res{};
-	ss >> res;
-	return res;
-}
-
 //重载流运算符,使其可以直接写入文件
 std::ofstream& operator<<(std::ofstream& __ofs, 
 	CBill& __w)
