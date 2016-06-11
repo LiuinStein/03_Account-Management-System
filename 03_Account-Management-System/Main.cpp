@@ -5,6 +5,7 @@
 #include <sstream>
 #include "CBill.h"
 #include "FilePath.h"
+#include "AllAccBook.h"
 
 //输出账本清单
 void Main::printAccBook()
@@ -45,7 +46,7 @@ std::string Main::inputDesc()
 		res = "父母给";
 	else if (descNum == 4)
 	{
-		int tmp{};
+		int tmp;
 		std::cout << "Enter a new description: ";
 		do
 		{
@@ -67,12 +68,12 @@ bool Main::useDefTemp()
 }
 
 //使用自定义必需和备注模板
-void Main::useDIYTemp(std::string* __nec, 
+void Main::useDIYTemp(bool* __nec, 
 	std::string* __note)
 {
 	std::cout << "Is it necessary to use the money?" << std::endl;
 	std::cout << "Type 1 is necessary,0 is unnecessary: ";
-	*__nec = inputNum(0, 1) == 1 ? "必需" : "非必需";
+	*__nec = inputNum(0, 1) == 1 ? true : false;
 	std::cout << "Type your note: ";
 	do
 	{
@@ -120,10 +121,10 @@ void Main::createdByMon()
 	std::cout << "Enter the money: ";
 	std::cin >> mon;	
 	//模板的使用(备注和必需)
-	std::string necessary;
+	bool necessary;
 	std::string note;
 	if (useDefTemp())
-		necessary = "必需",
+		necessary = true,
 		note = "无";
 	else
 		useDIYTemp(&necessary, &note);
@@ -135,8 +136,14 @@ void Main::createdByMon()
 	log = ss.str();
 	//用户确认
 	if (finallyConfirm())
-		//TODO: 通过确认的情况
-		;
+	{
+		CAllAccBook allAccBook;
+		CAccBook accBook(m_operBillNum);
+		accBook.LineByMon(desc, eim, mon, necessary, note);
+		allAccBook.LineByMon(desc, eim, mon, necessary, note);
+		accBook.writeBook();
+		allAccBook.writeBook();
+	}
 	//是否干点别的
 	doSomethingElse();
 }
@@ -149,10 +156,10 @@ void Main::createdByBal()
 	std::cout << "Enter new balance: ";
 	std::cin >> bal;
 	//是否使用默认模板
-	std::string necessary;
+	bool necessary;
 	std::string note;
 	if (useDefTemp())
-		necessary = "必需",
+		necessary = true,
 		note = "无";
 	else
 		useDIYTemp(&necessary, &note);
@@ -163,8 +170,14 @@ void Main::createdByBal()
 	log = ss.str();
 	//用户确认
 	if (finallyConfirm())
-		//TODO: 通过确认的情况
-		;
+	{
+		CAllAccBook allAccBook;
+		CAccBook accBook(m_operBillNum);
+		accBook.LineByBal(desc, bal, necessary, note);
+		allAccBook.LineByBal(desc, bal, necessary, note);
+		accBook.writeBook();
+		allAccBook.writeBook();
+	}
 	//是否干点别的
 	doSomethingElse();
 }
@@ -179,10 +192,10 @@ void Main::createdByFlow()
 	double mon{};
 	std::cin >> mon;
 	//是否使用默认模板
-	std::string necessary;
+	bool necessary;
 	std::string note;
 	if (useDefTemp())
-		necessary = "必需",
+		necessary = true,
 		note = "无";
 	else
 		useDIYTemp(&necessary, &note);
@@ -195,8 +208,20 @@ void Main::createdByFlow()
 	log = ss.str();
 	//用户确认
 	if (finallyConfirm())
-		//TODO: 通过确认的情况
-		;
+	{
+		CAllAccBook allAccBook;
+		CAccBook accBook_1(m_operBillNum);
+		CAccBook accBook_2(m_operBill2Num);
+
+		std::string desc = "内部资金流通";
+		accBook_1.LineByMon(desc, Expense, mon, necessary, note);
+		accBook_2.LineByMon(desc, Income, mon, necessary, note);
+		allAccBook.LineByMon(desc, Flow, mon, necessary, note);
+
+		accBook_1.writeBook();
+		accBook_2.writeBook();
+		allAccBook.writeBook();
+	}
 	//是否干点别的
 	doSomethingElse();
 

@@ -9,6 +9,6 @@ std::ofstream& operator<<(std::ofstream& __ofs,
 	CLine& __w)
 {
 	__ofs << __w.m_now << '\t' << __w.m_desc << '\t';
-	__ofs << __w.m_bill << std::endl;
+	__ofs << __w.m_bill;
 	return __ofs;
 }

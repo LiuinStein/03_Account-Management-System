@@ -18,7 +18,7 @@ private:
 
 	bool useDefTemp();		//是否使用默认模板(必需和备注)
 
-	void useDIYTemp(std::string * __nec,
+	void useDIYTemp(bool * __nec,
 		std::string * __note);	//使用自定义必需和备注模板
 
 	bool finallyConfirm();	//向用户的最终确认
