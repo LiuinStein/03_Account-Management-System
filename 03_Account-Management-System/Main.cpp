@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <conio.h>
 #include "CBill.h"
 #include "FilePath.h"
 #include "AllAccBook.h"
@@ -267,23 +268,35 @@ Main::Main()
 	//密码验证部分
 	char key[21]{};
 	bool keyCorrect;
+	int index{};
 	do
 	{
-		for (int i = 0; i < 21; i++)
+		while (1)
 		{
-			std::cin >> key[i];
-			std::cout << '\b' << '*';
-			if (key[i] == char(13))
+			key[index] = char(_getch());
+			if (key[index] == char(13))
 			{
-				key[i] = '\0';
+				key[index] = '\0';
 				break;
 			}
+			if (key[index] != '\b')
+			{
+				std::cout << '*';
+				index++;
+			}			
+			else if (index > 0)
+			{
+				std::cout << '\b' << ' ' << '\b';
+				index--;
+			}		
 		}
 		keyCorrect = std::strcmp(key, "1021") == 0;
 		if (!keyCorrect)
 		{
+			std::cout << std::endl;
 			std::cout << "Password Error!" << std::endl;
 			std::cout << "Enter Password again: ";
+			index = 0;
 		}
 	} while (!keyCorrect);
 
