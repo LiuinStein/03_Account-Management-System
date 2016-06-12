@@ -322,7 +322,7 @@ short Main::inputNum(short __s, short __e, const char * InputError)
 				<< __s << "," << __e << "]" << std::endl
 				<< "Type again: ";
 			else
-				std::cout << *InputError << std::endl
+				std::cout << InputError << std::endl
 				<< "Type again: ";
 	} while (result < __s || result > __e);
 	return result;

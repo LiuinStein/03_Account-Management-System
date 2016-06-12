@@ -1,6 +1,5 @@
 #pragma once
 #include "AccBook.h"
-#include "AllBillLine.h"
 
 class CAllAccBook :
 	public CAccBook
