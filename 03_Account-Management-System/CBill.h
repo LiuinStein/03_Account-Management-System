@@ -27,8 +27,8 @@ public:
 	CBill(EIMODE __EIM, double __mon, double __lastBal,
 		bool __isN = true, std::string __n = "无");
 	
-	//得到余额
-	double getBalance()const;	
+	//得到流动金额
+	double getMon()const;	
 
 	//重载流运算符,使其可以直接写入文件
 	friend std::ofstream& operator<<(std::ofstream& __ofs, CBill & __w);

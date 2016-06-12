@@ -19,7 +19,7 @@ CDateTime::CDateTime()
 std::ofstream& operator<<(std::ofstream& __ofs, 
 	CDateTime& __t)
 {
-	__ofs << __t.m_year << '/' << __t.m_mon << '/' << __t.m_day
+	__ofs << __t.m_year << "年" << __t.m_mon << "月" << __t.m_day << "日"
 		<< '\t' << __t.m_hour << ':';
 	//
 	if (__t.m_min < 10)

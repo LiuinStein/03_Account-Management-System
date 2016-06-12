@@ -34,29 +34,31 @@ CAccBook::CAccBook(short __num) :
 	load.close();
 }
 
-//通过信息创建CLine(资金以及流向)
-void CAccBook::LineByMon(std::string & __desc, 
+//通过信息创建CLine(资金以及流向),返回流动的金额
+double CAccBook::LineByMon(std::string & __desc, 
 	EIMODE __eim, double __mon, bool __nece,
 	std::string& __n)
 {
 	CBill tmp(__eim, __mon, m_lastBal,
 		__nece, __n);
 	m_line = new CLine(__desc, tmp);
+	return tmp.getMon();
 }
 
-//通过余额创建CLine
-void CAccBook::LineByBal(std::string& __desc, 
+//通过余额创建CLine,返回流动的金额
+double CAccBook::LineByBal(std::string& __desc, 
 	double __bal, bool __nece, std::string& __n)
 {
 	CBill tmp(__bal, m_lastBal, __nece, __n);
 	m_line = new CLine(__desc, tmp);
+	return tmp.getMon();
 }
 
 //写入账本
 void CAccBook::writeBook()const
 {
 	std::ofstream out;
-	out.open(AccountBooks[m_operBook]);
+	out.open(AccountBooks[m_operBook], std::ios::app);
 	out << *m_line << std::endl;
 	out.close();
 }

@@ -11,10 +11,14 @@ private:
 public:
 	CAllAccBook();
 
-	void setSheet(std::string & __s1, std::string & __s2);
+	void setSheet(const char * __s1,
+		const char * __s2 = "无");
 
 	//写入账本
 	void writeBook()const;
+
+	//得到上一次的余额
+	double getLastBal()const;
 
 };
 

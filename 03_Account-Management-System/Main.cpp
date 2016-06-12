@@ -48,9 +48,9 @@ std::string Main::inputDesc()
 	else if (descNum == 4)
 	{
 		int tmp;
-		std::cout << "Enter a new description: ";
 		do
 		{
+			std::cout << "Enter a new description: ";
 			std::cin >> res;
 			std::cout << "Confirm your type: " << res << std::endl;
 			std::cout << "Type 1 to apply,type 0 to rewrite: ";
@@ -133,7 +133,7 @@ void Main::createdByMon()
 	std::stringstream ss;
 	ss << std::fixed
 		<< (eim == Expense ? "Expense ￥" : "Income ￥")
-		<< mon << "in " << AccountBooks[m_operBillNum];
+		<< mon << " in " << AccountBooks[m_operBillNum];
 	log = ss.str();
 	//用户确认
 	if (finallyConfirm())
@@ -142,6 +142,7 @@ void Main::createdByMon()
 		CAccBook accBook(m_operBillNum);
 		accBook.LineByMon(desc, eim, mon, necessary, note);
 		allAccBook.LineByMon(desc, eim, mon, necessary, note);
+		allAccBook.setSheet(AccountBooks[m_operBillNum].c_str());
 		accBook.writeBook();
 		allAccBook.writeBook();
 	}
@@ -174,8 +175,13 @@ void Main::createdByBal()
 	{
 		CAllAccBook allAccBook;
 		CAccBook accBook(m_operBillNum);
-		accBook.LineByBal(desc, bal, necessary, note);
-		allAccBook.LineByBal(desc, bal, necessary, note);
+		double mon{
+			accBook.LineByBal(desc, bal, necessary, note)
+		};
+		allAccBook.LineByBal(desc,
+			allAccBook.getLastBal() - mon,
+			necessary, note);
+		allAccBook.setSheet(AccountBooks[m_operBillNum].c_str());
 		accBook.writeBook();
 		allAccBook.writeBook();
 	}
@@ -213,12 +219,12 @@ void Main::createdByFlow()
 		CAllAccBook allAccBook;
 		CAccBook accBook_1(m_operBillNum);
 		CAccBook accBook_2(m_operBill2Num);
-
 		std::string desc = "内部资金流通";
 		accBook_1.LineByMon(desc, Expense, mon, necessary, note);
 		accBook_2.LineByMon(desc, Income, mon, necessary, note);
 		allAccBook.LineByMon(desc, Flow, mon, necessary, note);
-
+		allAccBook.setSheet(AccountBooks[m_operBillNum].c_str(),
+			AccountBooks[m_operBill2Num].c_str());
 		accBook_1.writeBook();
 		accBook_2.writeBook();
 		allAccBook.writeBook();
