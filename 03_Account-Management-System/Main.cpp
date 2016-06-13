@@ -74,10 +74,10 @@ void Main::useDIYTemp(bool* __nec,
 {
 	std::cout << "Is it necessary to use the money?" << std::endl;
 	std::cout << "Type 1 is necessary,0 is unnecessary: ";
-	*__nec = inputNum(0, 1) == 1 ? true : false;
-	std::cout << "Type your note: ";
+	*__nec = inputNum(0, 1) == 1 ? true : false;	
 	do
 	{
+		std::cout << "Type your note: ";
 		std::cin >> *__note;
 		std::cout << "Your new note is " << *__note << std::endl;
 		std::cout << "Type 1 to apply,0 to rewrite: ";
@@ -209,7 +209,7 @@ void Main::createdByFlow()
 	//记录日志
 	std::stringstream ss;
 	ss << std::fixed
-		<< "Total of ￥" << mon << "is flowing from \""
+		<< "Total of ￥" << mon << " is flowing from \""
 		<< AccountBooks[m_operBillNum] << "\" to \""
 		<< AccountBooks[m_operBill2Num] << "\"";
 	log = ss.str();
