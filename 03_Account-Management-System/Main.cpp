@@ -91,7 +91,7 @@ bool Main::finallyConfirm()
 	std::cout << "You has changed the following account book(s): " << std::endl;
 	std::cout << "1: " << AccountBooks[m_operBillNum] << std::endl;
 	if (m_operMode == 3)	//针对内部资金流通情况的第二账本
-		std::cout << "2: " << AccountBooks[m_operBillNum] << std::endl;
+		std::cout << "2: " << AccountBooks[m_operBill2Num] << std::endl;
 	std::cout << "You has made these changes:" << std::endl;
 	std::cout << log << std::endl;
 	std::cout << "Are you ABSOLUTELY sure?" << std::endl;
@@ -179,7 +179,7 @@ void Main::createdByBal()
 			accBook.LineByBal(desc, bal, necessary, note)
 		};
 		allAccBook.LineByBal(desc,
-			allAccBook.getLastBal() - mon,
+			allAccBook.getLastBal() + mon,
 			necessary, note);
 		allAccBook.setSheet(AccountBooks[m_operBillNum].c_str());
 		accBook.writeBook();

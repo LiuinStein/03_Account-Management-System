@@ -35,14 +35,13 @@ CAccBook::CAccBook(short __num) :
 }
 
 //通过信息创建CLine(资金以及流向),返回流动的金额
-double CAccBook::LineByMon(std::string & __desc, 
+void CAccBook::LineByMon(std::string & __desc, 
 	EIMODE __eim, double __mon, bool __nece,
 	std::string& __n)
 {
 	CBill tmp(__eim, __mon, m_lastBal,
 		__nece, __n);
 	m_line = new CLine(__desc, tmp);
-	return tmp.getMon();
 }
 
 //通过余额创建CLine,返回流动的金额

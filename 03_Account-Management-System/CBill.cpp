@@ -32,7 +32,8 @@ CBill::CBill(EIMODE __EIM, double __mon,
 //得到流动金额
 double CBill::getMon() const
 {
-	return m_money;
+    return m_EIM == Expense ? -m_money :
+        m_money;
 }
 
 //重载流运算符,使其可以直接写入文件
